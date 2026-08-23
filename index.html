@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,9 +35,9 @@
 </script>
  
 <!-- React + Babel (CDN, no build step needed) -->
-<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
-<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
-<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7/babel.min.js"></script>
  
 <style>
   :root {
@@ -90,22 +91,19 @@
     50% { transform: translate(-4vw, 5vh) scale(0.95); }
   }
  
-  /* Fade-in on load, staggered by DOM order */
+  /* Fade-in on load */
   .hero-fade-in {
     opacity: 0;
     transform: translateY(14px);
     animation: heroFadeIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
-  .hero-fade-in:nth-of-type(1) { animation-delay: 0.05s; }
-  .hero-fade-in:nth-of-type(2) { animation-delay: 0.2s; }
-  .hero-fade-in:nth-of-type(3) { animation-delay: 0.35s; }
-  .hero-fade-in:nth-of-type(4) { animation-delay: 0.5s; }
   @keyframes heroFadeIn {
     to { opacity: 1; transform: translateY(0); }
   }
-  h1.hero-fade-in { animation-name: heroFadeInName; }
-  @keyframes heroFadeInName {
-    to { opacity: 1; transform: translateY(0); }
+ 
+  /* Offset anchor jumps so the fixed navbar never covers a section's top */
+  section[id], header[id], footer[id] {
+    scroll-margin-top: 96px;
   }
  
   /* Scroll progress line */
@@ -131,7 +129,7 @@
  
   /* Respect reduced motion */
   @media (prefers-reduced-motion: reduce) {
-    .hero-aurora, .hero-fade-in, .scroll-line, .nav-flash::after {
+    .hero-aurora, .hero-fade-in, .scroll-line, .nav-flash::after, .mobile-menu-panel {
       animation: none !important;
       transition: none !important;
       opacity: 1 !important;
@@ -174,23 +172,182 @@ function FileTextIcon({ className }) {
     </svg>
   );
 }
+function DatabaseIcon({ className }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <ellipse cx="12" cy="5" rx="9" ry="3" />
+      <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+      <path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3" />
+    </svg>
+  );
+}
+function CodeIcon({ className }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M16 18l6-6-6-6" />
+      <path d="M8 6l-6 6 6 6" />
+    </svg>
+  );
+}
+function BarChartIcon({ className }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="12" y1="20" x2="12" y2="10" />
+      <line x1="18" y1="20" x2="18" y2="4" />
+      <line x1="6" y1="20" x2="6" y2="16" />
+    </svg>
+  );
+}
+function PieChartIcon({ className }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21.21 15.89A10 10 0 1 1 8 2.83" />
+      <path d="M22 12A10 10 0 0 0 12 2v10z" />
+    </svg>
+  );
+}
+function TrendingUpIcon({ className }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+      <polyline points="17 6 23 6 23 12" />
+    </svg>
+  );
+}
+function SheetIcon({ className }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="3" width="18" height="18" rx="2" />
+      <line x1="3" y1="9" x2="21" y2="9" />
+      <line x1="3" y1="15" x2="21" y2="15" />
+      <line x1="9" y1="9" x2="9" y2="21" />
+      <line x1="15" y1="9" x2="15" y2="21" />
+    </svg>
+  );
+}
+function PresentationIcon({ className }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M2 3h20" />
+      <path d="M4 3v13a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V3" />
+      <path d="M9 21l3-4 3 4" />
+    </svg>
+  );
+}
+function UsersIcon({ className }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+      <circle cx="9" cy="7" r="4" />
+      <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+    </svg>
+  );
+}
+function TargetIcon({ className }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10" />
+      <circle cx="12" cy="12" r="6" />
+      <circle cx="12" cy="12" r="2" />
+    </svg>
+  );
+}
+function LightbulbIcon({ className }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M9 18h6" />
+      <path d="M10 22h4" />
+      <path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.3h6c0-1 .4-1.8 1-2.3A7 7 0 0 0 12 2z" />
+    </svg>
+  );
+}
+function ClipboardIcon({ className }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="8" y="2" width="8" height="4" rx="1" />
+      <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+      <path d="M9 12h6" />
+      <path d="M9 16h6" />
+    </svg>
+  );
+}
+function LinkedinIcon({ className }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+      <rect x="2" y="9" width="4" height="12" />
+      <circle cx="4" cy="4" r="2" />
+    </svg>
+  );
+}
+function GithubIcon({ className }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21" />
+    </svg>
+  );
+}
+function TwitterIcon({ className }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" stroke="none">
+      <path d="M18.9 2H22l-7.6 8.7L23.3 22h-7.1l-5.5-7.2L4.4 22H1.3l8.2-9.3L1 2h7.3l5 6.6L18.9 2zm-1.2 18h1.9L7.4 4H5.4l12.3 16z" />
+    </svg>
+  );
+}
+function MenuIcon({ className }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="4" y1="7" x2="20" y2="7" />
+      <line x1="4" y1="12" x2="20" y2="12" />
+      <line x1="4" y1="17" x2="20" y2="17" />
+    </svg>
+  );
+}
+function CloseIcon({ className }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="6" y1="6" x2="18" y2="18" />
+      <line x1="6" y1="18" x2="18" y2="6" />
+    </svg>
+  );
+}
+function MessageIcon({ className }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+    </svg>
+  );
+}
  
 /* ---------------------------------- Navbar ---------------------------------- */
 const links = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
+  { label: "Skills", href: "#skills" },
   { label: "Work", href: "#work" },
+  { label: "Testimonials", href: "#testimonials" },
   { label: "Contact", href: "#contact" },
 ];
  
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
  
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+ 
+  // Close the mobile menu automatically if the viewport grows back to desktop size
+  useEffect(() => {
+    const onResize = () => {
+      if (window.innerWidth >= 768) setMenuOpen(false);
+    };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
   }, []);
  
   return (
@@ -201,8 +358,8 @@ function Navbar() {
       <div
         className="border-b transition-colors duration-500"
         style={{
-          borderColor: scrolled ? "hsl(var(--border))" : "transparent",
-          backgroundColor: scrolled ? "hsla(240, 14%, 4%, 0.6)" : "transparent",
+          borderColor: scrolled || menuOpen ? "hsl(var(--border))" : "transparent",
+          backgroundColor: scrolled || menuOpen ? "hsla(240, 14%, 4%, 0.6)" : "transparent",
         }}
       >
         <div className="flex items-center justify-between px-6 md:px-12 py-6">
@@ -214,19 +371,50 @@ function Navbar() {
             Portfolio.
           </a>
  
-          <ul className="flex items-center gap-6 md:gap-10">
+          {/* Desktop links */}
+          <ul className="hidden md:flex items-center gap-8 lg:gap-10">
             {links.map((l) => (
               <li key={l.label}>
                 <a
                   href={l.href}
-                  className="nav-flash font-mono text-xs md:text-sm uppercase tracking-widest text-muted-foreground"
+                  className="nav-flash font-mono text-xs lg:text-sm uppercase tracking-widest text-muted-foreground"
                 >
                   {l.label}
                 </a>
               </li>
             ))}
           </ul>
+ 
+          {/* Mobile menu toggle */}
+          <button
+            type="button"
+            onClick={() => setMenuOpen((v) => !v)}
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
+            className="md:hidden flex items-center justify-center w-10 h-10 text-foreground"
+          >
+            {menuOpen ? <CloseIcon className="w-5 h-5" /> : <MenuIcon className="w-5 h-5" />}
+          </button>
         </div>
+ 
+        {/* Mobile menu panel */}
+        {menuOpen && (
+          <div className="mobile-menu-panel md:hidden border-t border-border px-6 py-6">
+            <ul className="flex flex-col gap-5">
+              {links.map((l) => (
+                <li key={l.label}>
+                  <a
+                    href={l.href}
+                    onClick={() => setMenuOpen(false)}
+                    className="font-mono text-sm uppercase tracking-widest text-muted-foreground"
+                  >
+                    {l.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </nav>
   );
@@ -298,13 +486,14 @@ function Hero() {
       />
  
       {/* Hero content */}
-      <div className="relative z-10 h-full flex flex-col justify-center px-6 md:px-24 max-w-7xl">
+      <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6 md:px-24 max-w-7xl mx-auto">
         <h1
           className="leading-[0.85] tracking-tighter text-foreground hero-fade-in [font-family:'Be_Vietnam_Pro',_sans-serif] font-normal text-7xl"
           style={{
             fontWeight: 500,
             letterSpacing: "-0.04em",
             fontSize: "clamp(3rem, 10vw, 9rem)",
+            animationDelay: "0.05s",
           }}
         >
           Harshil
@@ -313,14 +502,17 @@ function Hero() {
         </h1>
         <span
           className="font-mono text-sm md:text-base uppercase tracking-[0.3em] mt-6 mb-6 hero-fade-in"
-          style={{ color: "#3B82F6" }}
+          style={{ color: "#3B82F6", animationDelay: "0.2s" }}
         >
           Operation &amp; Business Data Analyst
         </span>
-        <p className="max-w-xl font-body text-base md:text-lg text-muted-foreground leading-relaxed hero-fade-in">
+        <p
+          className="max-w-xl font-body text-base md:text-lg text-muted-foreground leading-relaxed hero-fade-in"
+          style={{ animationDelay: "0.35s" }}
+        >
           Turning raw data into decisive strategy — building analytical systems that reveal the story behind every number.
         </p>
-        <div className="mt-10 flex flex-col sm:flex-row gap-4 hero-fade-in">
+        <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4 hero-fade-in" style={{ animationDelay: "0.5s" }}>
           <a
             href="#contact"
             className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-mono text-xs uppercase tracking-widest transition-all duration-300 hover:brightness-110"
@@ -353,38 +545,480 @@ function Hero() {
   );
 }
  
-/* ---------------------------------- Placeholder sections ---------------------------------- */
-/* These give the About / Work nav links somewhere to land, since only Hero/Navbar/Footer
-   were provided. Replace the content below with real content whenever you have it. */
+const stats = [
+  { value: "5+", label: "Years of Experience" },
+  { value: "40+", label: "Projects Completed" },
+  { value: "20+", label: "Clients Worked With" },
+];
+ 
 function About() {
   return (
-    <section id="about" className="px-6 md:px-24 py-32 border-t border-border">
+    <section id="about" className="px-6 md:px-24 py-20 md:py-32 border-t border-border">
       <span className="font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground">About</span>
       <h2
-        className="mt-4 max-w-3xl leading-[0.95] tracking-tighter text-foreground font-heading"
+        className="mt-4 leading-[0.95] tracking-tighter text-foreground font-heading"
         style={{ fontWeight: 500, letterSpacing: "-0.04em", fontSize: "clamp(2rem, 5vw, 4rem)" }}
       >
-        Add your background, focus areas, and tools here.
+        About Me
       </h2>
+ 
+      <div className="mt-12 md:mt-14 grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 items-start">
+        {/* Photo */}
+        <div className="md:col-span-5 lg:col-span-4">
+          <div
+            className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden border"
+            style={{ borderColor: "hsl(var(--border))", backgroundColor: "#101015" }}
+          >
+            <img
+              src="https://placehold.co/600x750/101015/3B82F6?text=Photo"
+              alt="Portrait of Harshil Patel"
+              className="w-full h-full object-cover"
+            />
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{ boxShadow: "inset 0 0 0 1px rgba(59,130,246,0.15)" }}
+            />
+          </div>
+          <p className="mt-3 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+            Replace with your own photo
+          </p>
+        </div>
+ 
+        {/* Bio */}
+        <div className="md:col-span-7 lg:col-span-8">
+          <p className="font-body text-base md:text-lg text-muted-foreground leading-relaxed">
+            I'm an Operations &amp; Business Data Analyst who turns messy, disconnected data into clear
+            decisions. I've spent the last several years building dashboards, forecasting models, and
+            reporting systems for teams that need to move fast without losing sight of the numbers.
+            Outside of spreadsheets and SQL, I'm focused on making data feel less like a chore and more
+            like a compass — something teams actually want to use.
+          </p>
+ 
+          {/* Stats */}
+          <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-6 border-t border-border pt-10">
+            {stats.map((s) => (
+              <div key={s.label} className="flex flex-col gap-1">
+                <span
+                  className="font-heading leading-none tracking-tighter"
+                  style={{ fontWeight: 500, letterSpacing: "-0.03em", fontSize: "clamp(2rem, 4vw, 3rem)", color: "#3B82F6" }}
+                >
+                  {s.value}
+                </span>
+                <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+                  {s.label}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
  
+const projects = [
+  {
+    title: "Sales Performance Dashboard",
+    category: "Dashboards",
+    description: "Interactive dashboard tracking regional sales, quota attainment, and pipeline health in real time.",
+  },
+  {
+    title: "Inventory Demand Forecasting",
+    category: "Forecasting",
+    description: "Time-series model predicting SKU-level demand to reduce stockouts and excess inventory.",
+  },
+  {
+    title: "Customer Churn Analysis",
+    category: "Analytics",
+    description: "Cohort and survival analysis identifying key churn drivers and at-risk customer segments.",
+  },
+  {
+    title: "Operations Cost Report Automation",
+    category: "Automation",
+    description: "Automated monthly cost-reporting pipeline that cut manual reporting time by 80%.",
+  },
+  {
+    title: "Marketing Attribution Model",
+    category: "Analytics",
+    description: "Multi-touch attribution model connecting campaign spend to downstream revenue impact.",
+  },
+  {
+    title: "Executive KPI Dashboard",
+    category: "Dashboards",
+    description: "Single-pane-of-glass dashboard consolidating KPIs across finance, ops, and sales for leadership.",
+  },
+];
+ 
+const categories = ["All", ...Array.from(new Set(projects.map((p) => p.category)))];
+ 
 function Work() {
+  const [activeCategory, setActiveCategory] = useState("All");
+ 
+  const filtered =
+    activeCategory === "All" ? projects : projects.filter((p) => p.category === activeCategory);
+ 
   return (
-    <section id="work" className="px-6 md:px-24 py-32 border-t border-border">
+    <section id="work" className="px-6 md:px-24 py-20 md:py-32 border-t border-border">
       <span className="font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground">Work</span>
       <h2
-        className="mt-4 max-w-3xl leading-[0.95] tracking-tighter text-foreground font-heading"
+        className="mt-4 leading-[0.95] tracking-tighter text-foreground font-heading"
         style={{ fontWeight: 500, letterSpacing: "-0.04em", fontSize: "clamp(2rem, 5vw, 4rem)" }}
       >
-        Add project case studies or a portfolio grid here.
+        Selected Projects
       </h2>
+ 
+      {/* Category filter */}
+      <div className="mt-10 flex flex-wrap gap-3">
+        {categories.map((cat) => {
+          const isActive = cat === activeCategory;
+          return (
+            <button
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              className="px-5 py-2 rounded-full font-mono text-xs uppercase tracking-widest border transition-all duration-300"
+              style={{
+                backgroundColor: isActive ? "#3B82F6" : "transparent",
+                color: isActive ? "#FFFFFF" : "hsl(var(--muted-foreground))",
+                borderColor: isActive ? "#3B82F6" : "hsl(var(--border))",
+              }}
+            >
+              {cat}
+            </button>
+          );
+        })}
+      </div>
+ 
+      {/* Project grid */}
+      <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        {filtered.map((project) => (
+          <div
+            key={project.title}
+            className="group flex flex-col rounded-2xl overflow-hidden border transition-colors duration-300 hover:border-[#3B82F6]"
+            style={{ borderColor: "hsl(var(--border))", backgroundColor: "#0D0D12" }}
+          >
+            {/* Image placeholder */}
+            <div className="relative w-full aspect-[16/10] overflow-hidden" style={{ backgroundColor: "#101015" }}>
+              <img
+                src={`https://placehold.co/600x375/101015/3B82F6?text=${encodeURIComponent(project.title)}`}
+                alt={`${project.title} preview`}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <span
+                className="absolute top-3 left-3 px-3 py-1 rounded-full font-mono text-[10px] uppercase tracking-widest"
+                style={{ backgroundColor: "rgba(8,8,11,0.7)", color: "#F4F4F9", backdropFilter: "blur(6px)" }}
+              >
+                {project.category}
+              </span>
+            </div>
+ 
+            {/* Content */}
+            <div className="flex flex-col flex-1 p-6">
+              <h3
+                className="font-heading text-xl tracking-tight text-foreground"
+                style={{ fontWeight: 500, letterSpacing: "-0.02em" }}
+              >
+                {project.title}
+              </h3>
+              <p className="mt-3 flex-1 font-body text-sm text-muted-foreground leading-relaxed">
+                {project.description}
+              </p>
+              <a
+                href="#"
+                className="nav-flash mt-6 inline-flex items-center gap-2 self-start font-mono text-xs uppercase tracking-widest"
+                style={{ color: "#3B82F6" }}
+              >
+                View Project
+                <ArrowRightIcon className="w-3.5 h-3.5" />
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+ 
+/* ---------------------------------- Skills ---------------------------------- */
+const skillGroups = [
+  {
+    category: "Data & Analytics",
+    skills: [
+      { label: "SQL", icon: DatabaseIcon },
+      { label: "Python", icon: CodeIcon },
+      { label: "Statistical Analysis", icon: BarChartIcon },
+      { label: "Forecasting", icon: TrendingUpIcon },
+      { label: "Data Visualization", icon: PieChartIcon },
+      { label: "A/B Testing", icon: TargetIcon },
+    ],
+  },
+  {
+    category: "Tools & Platforms",
+    skills: [
+      { label: "Power BI", icon: BarChartIcon },
+      { label: "Tableau", icon: PieChartIcon },
+      { label: "Excel", icon: SheetIcon },
+      { label: "Google Sheets", icon: SheetIcon },
+      { label: "SAP", icon: DatabaseIcon },
+      { label: "PowerPoint", icon: PresentationIcon },
+    ],
+  },
+  {
+    category: "Core Skills",
+    skills: [
+      { label: "Business Strategy", icon: LightbulbIcon },
+      { label: "Stakeholder Management", icon: UsersIcon },
+      { label: "Project Management", icon: ClipboardIcon },
+      { label: "Communication", icon: MessageIcon },
+      { label: "Problem Solving", icon: TargetIcon },
+      { label: "Process Improvement", icon: TrendingUpIcon },
+    ],
+  },
+];
+ 
+function Skills() {
+  return (
+    <section id="skills" className="px-6 md:px-24 py-20 md:py-32 border-t border-border">
+      <span className="font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground">Skills</span>
+      <h2
+        className="mt-4 leading-[0.95] tracking-tighter text-foreground font-heading"
+        style={{ fontWeight: 500, letterSpacing: "-0.04em", fontSize: "clamp(2rem, 5vw, 4rem)" }}
+      >
+        What I Work With
+      </h2>
+ 
+      <div className="mt-12 md:mt-16 flex flex-col gap-14 md:gap-16">
+        {skillGroups.map((group) => (
+          <div key={group.category}>
+            <h3 className="font-mono text-xs uppercase tracking-widest" style={{ color: "#3B82F6" }}>
+              {group.category}
+            </h3>
+            <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+              {group.skills.map((skill) => {
+                const Icon = skill.icon;
+                return (
+                  <div
+                    key={skill.label}
+                    className="group flex flex-col items-center justify-center gap-3 text-center px-4 py-8 rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:border-[#3B82F6]"
+                    style={{ borderColor: "hsl(var(--border))", backgroundColor: "#0D0D12" }}
+                  >
+                    <div
+                      className="flex items-center justify-center w-11 h-11 rounded-xl transition-colors duration-300"
+                      style={{ backgroundColor: "rgba(59,130,246,0.1)", color: "#3B82F6" }}
+                    >
+                      <Icon className="w-5 h-5" />
+                    </div>
+                    <span className="font-mono text-xs uppercase tracking-wide text-muted-foreground">
+                      {skill.label}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+ 
+/* ---------------------------------- Testimonials ---------------------------------- */
+const testimonials = [
+  {
+    quote:
+      "Harshil turned a mess of spreadsheets into a dashboard our whole leadership team actually opens every week. The forecasting model alone saved us weeks of manual work.",
+    name: "Sarah Mitchell",
+    role: "VP of Operations, Northline Retail",
+  },
+  {
+    quote:
+      "What stood out was how clearly he explained the numbers. We didn't just get charts, we got a story we could act on immediately.",
+    name: "David Okafor",
+    role: "Head of Sales, Brightpath Logistics",
+  },
+  {
+    quote:
+      "He caught a churn pattern our team had missed for months. That single insight reshaped our entire retention strategy for the quarter.",
+    name: "Priya Nandakumar",
+    role: "Product Lead, Fieldstone SaaS",
+  },
+];
+ 
+function Testimonials() {
+  return (
+    <section id="testimonials" className="px-6 md:px-24 py-20 md:py-32 border-t border-border">
+      <span className="font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground">Testimonials</span>
+      <h2
+        className="mt-4 leading-[0.95] tracking-tighter text-foreground font-heading"
+        style={{ fontWeight: 500, letterSpacing: "-0.04em", fontSize: "clamp(2rem, 5vw, 4rem)" }}
+      >
+        What People Say
+      </h2>
+ 
+      <div className="mt-12 md:mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        {testimonials.map((t) => (
+          <div
+            key={t.name}
+            className="flex flex-col justify-between rounded-2xl border p-8 transition-colors duration-300 hover:border-[#3B82F6]"
+            style={{ borderColor: "hsl(var(--border))", backgroundColor: "#0D0D12" }}
+          >
+            <div>
+              <svg
+                className="w-7 h-7 opacity-40"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#3B82F6"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M7 7a4 4 0 0 0-4 4v6h6v-6H6a2 2 0 0 1 2-2V7z" />
+                <path d="M17 7a4 4 0 0 0-4 4v6h6v-6h-3a2 2 0 0 1 2-2V7z" />
+              </svg>
+              <p className="mt-5 font-body text-sm md:text-base text-muted-foreground leading-relaxed">
+                {t.quote}
+              </p>
+            </div>
+ 
+            <div className="mt-8 flex items-center gap-4 pt-6 border-t" style={{ borderColor: "hsl(var(--border))" }}>
+              <div
+                className="w-11 h-11 rounded-full overflow-hidden shrink-0 border"
+                style={{ borderColor: "hsl(var(--border))", backgroundColor: "#101015" }}
+              >
+                <img
+                  src={`https://placehold.co/100x100/101015/3B82F6?text=${encodeURIComponent(t.name.split(" ").map((n) => n[0]).join(""))}`}
+                  alt={t.name}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="flex flex-col">
+                <span className="font-heading text-sm text-foreground" style={{ fontWeight: 500 }}>
+                  {t.name}
+                </span>
+                <span className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
+                  {t.role}
+                </span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </section>
   );
 }
  
 /* ---------------------------------- Footer ---------------------------------- */
+const socialLinks = [
+  { label: "LinkedIn", href: "https://linkedin.com", icon: LinkedinIcon },
+  { label: "GitHub", href: "https://github.com", icon: GithubIcon },
+  { label: "Twitter", href: "https://twitter.com", icon: TwitterIcon },
+];
+ 
+function ContactForm() {
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [submitted, setSubmitted] = useState(false);
+ 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((f) => ({ ...f, [name]: value }));
+  };
+ 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // NOTE: This is a static site with no backend, so this only simulates a
+    // submission. Wire this up to a service like Formspree, Netlify Forms,
+    // or your own endpoint to actually receive messages.
+    setSubmitted(true);
+    setForm({ name: "", email: "", message: "" });
+  };
+ 
+  if (submitted) {
+    return (
+      <div
+        className="w-full max-w-xl mx-auto rounded-2xl border px-8 py-12 text-center"
+        style={{ borderColor: "hsl(var(--border))", backgroundColor: "#0D0D12" }}
+      >
+        <p className="font-heading text-xl text-foreground" style={{ fontWeight: 500 }}>
+          Thanks for reaching out.
+        </p>
+        <p className="mt-2 font-body text-sm text-muted-foreground">
+          I'll get back to you as soon as I can.
+        </p>
+        <button
+          onClick={() => setSubmitted(false)}
+          className="nav-flash mt-6 font-mono text-xs uppercase tracking-widest"
+          style={{ color: "#3B82F6" }}
+        >
+          Send another message
+        </button>
+      </div>
+    );
+  }
+ 
+  return (
+    <form onSubmit={handleSubmit} className="w-full max-w-xl mx-auto flex flex-col gap-5">
+      <div className="flex flex-col gap-2 text-left">
+        <label htmlFor="name" className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+          Name
+        </label>
+        <input
+          id="name"
+          name="name"
+          type="text"
+          required
+          value={form.name}
+          onChange={handleChange}
+          placeholder="Your name"
+          className="w-full rounded-xl border px-4 py-3 font-body text-sm text-foreground placeholder:text-muted-foreground bg-transparent outline-none transition-colors duration-300 focus:border-[#3B82F6]"
+          style={{ borderColor: "hsl(var(--border))", backgroundColor: "#0D0D12" }}
+        />
+      </div>
+ 
+      <div className="flex flex-col gap-2 text-left">
+        <label htmlFor="email" className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+          Email
+        </label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          required
+          value={form.email}
+          onChange={handleChange}
+          placeholder="you@example.com"
+          className="w-full rounded-xl border px-4 py-3 font-body text-sm text-foreground placeholder:text-muted-foreground bg-transparent outline-none transition-colors duration-300 focus:border-[#3B82F6]"
+          style={{ borderColor: "hsl(var(--border))", backgroundColor: "#0D0D12" }}
+        />
+      </div>
+ 
+      <div className="flex flex-col gap-2 text-left">
+        <label htmlFor="message" className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+          Message
+        </label>
+        <textarea
+          id="message"
+          name="message"
+          required
+          rows={5}
+          value={form.message}
+          onChange={handleChange}
+          placeholder="Tell me a bit about what you're looking for..."
+          className="w-full rounded-xl border px-4 py-3 font-body text-sm text-foreground placeholder:text-muted-foreground bg-transparent outline-none resize-none transition-colors duration-300 focus:border-[#3B82F6]"
+          style={{ borderColor: "hsl(var(--border))", backgroundColor: "#0D0D12" }}
+        />
+      </div>
+ 
+      <button
+        type="submit"
+        className="mt-2 inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-mono text-xs uppercase tracking-widest transition-all duration-300 hover:brightness-110 self-center"
+        style={{ backgroundColor: "#3B82F6", color: "#FFFFFF" }}
+      >
+        Send Message
+        <ArrowRightIcon className="w-4 h-4" />
+      </button>
+    </form>
+  );
+}
+ 
 function Footer() {
   const [time, setTime] = useState("");
  
@@ -407,9 +1041,9 @@ function Footer() {
   }, []);
  
   return (
-    <footer id="contact" className="relative w-full px-6 md:px-12 pt-[15vh] pb-12" style={{ backgroundColor: "#08080B" }}>
-      <div className="border-t border-border pt-[10vh]">
-        <div className="flex flex-col gap-6">
+    <footer id="contact" className="relative w-full px-6 md:px-24 pt-20 md:pt-32 pb-12" style={{ backgroundColor: "#08080B" }}>
+      <div className="border-t border-border pt-16 md:pt-24">
+        <div className="flex flex-col items-center text-center gap-6">
           <span className="font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground">
             Available for new visions
           </span>
@@ -419,42 +1053,46 @@ function Footer() {
           >
             Start a Conversation
           </h2>
+          <p className="max-w-lg font-body text-base text-muted-foreground leading-relaxed">
+            Have a project in mind or just want to say hello? Fill out the form below and I'll get back to you.
+          </p>
         </div>
  
-        <div className="mt-[10vh] flex flex-col md:flex-row md:items-end md:justify-between gap-8 border-t border-border pt-8">
-          <div className="flex flex-col gap-1">
-            <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
-              Local Time · UTC
-            </span>
-            <span className="font-mono text-lg text-foreground tabular-nums">{time}</span>
-          </div>
+        {/* Contact form */}
+        <div className="mt-16">
+          <ContactForm />
+        </div>
  
-          <div className="flex flex-col md:items-end gap-3">
-            <div className="flex gap-6">
+        {/* Social icons */}
+        <div className="mt-14 flex items-center justify-center gap-4">
+          {socialLinks.map((s) => {
+            const Icon = s.icon;
+            return (
               <a
-                href="https://github.com"
+                key={s.label}
+                href={s.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="nav-flash font-mono text-sm uppercase tracking-widest text-muted-foreground"
+                aria-label={s.label}
+                className="flex items-center justify-center w-11 h-11 rounded-full border text-muted-foreground transition-all duration-300 hover:text-[#3B82F6] hover:border-[#3B82F6] hover:-translate-y-0.5"
+                style={{ borderColor: "hsl(var(--border))", backgroundColor: "#0D0D12" }}
               >
-                GitHub
+                <Icon className="w-4 h-4" />
               </a>
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="nav-flash font-mono text-sm uppercase tracking-widest text-muted-foreground"
-              >
-                LinkedIn
-              </a>
-            </div>
-            <a href="mailto:hello@example.com" className="nav-flash font-mono text-sm text-muted-foreground">
-              hello@example.com
-            </a>
-            <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
-              © {new Date().getFullYear()} · All Rights Reserved
-            </span>
-          </div>
+            );
+          })}
+        </div>
+ 
+        <div className="mt-16 flex flex-col items-center gap-3 border-t border-border pt-8 text-center">
+          <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+            Local Time · UTC {time}
+          </span>
+          <a href="mailto:hello@example.com" className="nav-flash font-mono text-sm text-muted-foreground">
+            hello@example.com
+          </a>
+          <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+            © {new Date().getFullYear()} · All Rights Reserved
+          </span>
         </div>
       </div>
     </footer>
@@ -468,7 +1106,9 @@ function App() {
       <Navbar />
       <Hero />
       <About />
+      <Skills />
       <Work />
+      <Testimonials />
       <Footer />
     </React.Fragment>
   );
